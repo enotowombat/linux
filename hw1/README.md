@@ -34,3 +34,18 @@ Apr 25 10:30:56 Installed: krb5-devel-1.15.1-8.el7.x86_64
 Apr 25 10:31:02 Installed: 1:openssl-devel-1.0.2k-8.el7.x86_64
 Apr 25 10:32:15 Installed: bc-1.06.95-13.el7.x86_64
 ```
+
+```
+cp /boot/config* .config
+make oldconfig
+make -j4
+make modules_install
+make install
+vi /etc/default/grub
+GRUB_DEFAULT=0
+grub2-mkconfig -o /boot/grub2/grub.cfg
+```
+```
+$ uname -a
+Linux otuslinux 4.16.4 #1 SMP Wed Apr 25 10:32:45 UTC 2018 x86_64 x86_64 x86_64 GNU/Linux
+```
