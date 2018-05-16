@@ -99,7 +99,7 @@ lvremove /dev/vg0/tmpLV -y
 lvremove /dev/vg0/tmpLVroot -y
 
 ```
-####Снапшоты
+#### Snapshots
 - сгенерить файлы в /home/, снять снэпшот, удалить часть файлов, восстановится со снэпшота
 
 ```
@@ -118,6 +118,7 @@ lvconvert --merge VolGroup00/home-snap0
 `reboot`
 После перезагрузки файлы восстановлены
 
+Script output: [typescript.lvm](https://github.com/enotowombat/linux/blob/master/hw3/typescript.lvm)
 
 ### ZFS
 
@@ -195,3 +196,5 @@ file1  file10  file2  file3  file4  file5  file6  file7  file8  file9
 NAME             USED  AVAIL  REFER  MOUNTPOINT
 pool@test_snap    13K      -    32K  -
 ```
+
+Script output: [typescript.zfs](https://github.com/enotowombat/linux/blob/master/hw3/typescript.zfs)
