@@ -1,0 +1,51 @@
+Script started on Wed 16 May 2018 10:59:46 AM UTC
+[root@otuslinux vagrant]# zpool create pool mirror sdb sdc cache sdd -m /opt
+[root@otuslinux vagrant]# zpool status pool
+  pool: pool
+ state: ONLINE
+  scan: none requested
+config:
+
+        NAME        STATE     READ WRITE CKSUM
+        pool        ONLINE       0     0     0
+          mirror-0  ONLINE       0     0     0
+            sdb     ONLINE       0     0     0
+            sdc     ONLINE       0     0     0
+        cache
+          sdd       ONLINE       0     0     0
+
+errors: No known data errors
+[root@otuslinux vagrant]# zfs list
+NAME   USED  AVAIL  REFER  MOUNTPOINT
+pool    96K   112M    24K  /opt
+[root@otuslinux vagrant]# touch /opt/file{1..10}
+[root@otuslinux vagrant]# zfs snapshot pool@test_snap
+[root@otuslinux vagrant]# zfs list -t snapshot
+NAME             USED  AVAIL  REFER  MOUNTPOINT
+pool@test_snap     0B      -    31K  -
+[root@otuslinux vagrant]# rm -rf /opt/file{1..5}
+[root@otuslinux vagrant]# zfs list -t snapshot
+NAME             USED  AVAIL  REFER  MOUNTPOINT
+pool@test_snap     0B      -    31K  -
+[root@otuslinux vagrant]# ls /opt
+file10  file6  file7  file8  file9
+[root@otuslinux vagrant]# zfs list -t snapshot
+NAME             USED  AVAIL  REFER  MOUNTPOINT
+pool@test_snap  18.5K      -    31K  -
+[root@otuslinux vagrant]# zfs rollback pool@test_snap
+[root@otuslinux vagrant]# ls /opt
+file1  file10  file2  file3  file4  file5  file6  file7  file8  file9
+[root@otuslinux vagrant]# zfs list -t snapshot
+NAME             USED  AVAIL  REFER  MOUNTPOINT
+pool@test_snap    13K      -    31K  -
+[root@otuslinux vagrant]# zfs destroy pool@test_snap
+[root@otuslinux vagrant]# zfs list -t snapshot
+no datasets available
+[root@otuslinux vagrant]# zfs destroy -r pool
+[root@otuslinux vagrant]# zpool destroy pool
+[root@otuslinux vagrant]# zfs list
+no datasets available
+[root@otuslinux vagrant]# exit
+exit
+
+Script done on Wed 16 May 2018 11:03:30 AM UTC
