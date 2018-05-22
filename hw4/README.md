@@ -66,14 +66,18 @@ PV необходимо инициализировать с параметром
 ### Добавить модуль в initrd
 
 - Создаем скрипты модуля и установки
-`# mkdir /usr/lib/dracut/modules.d/01test`
-`# vi /usr/lib/dracut/modules.d/01test/module-setup.sh`
-`# vi /usr/lib/dracut/modules.d/01test/test.sh`
-`# chmod +x /usr/lib/dracut/modules.d/01test/test.sh
-`# chmod + /usr/lib/dracut/modules.d/01test/module_setup.sh
+```
+# mkdir /usr/lib/dracut/modules.d/01test
+# vi /usr/lib/dracut/modules.d/01test/module-setup.sh
+# vi /usr/lib/dracut/modules.d/01test/test.sh
+# chmod +x /usr/lib/dracut/modules.d/01test/test.sh
+# chmod + /usr/lib/dracut/modules.d/01test/module_setup.sh
+```
 - Генерим образ
-`# dracut -f -v /boot/initramfs-$(uname -r).img $(uname -r)
-`*** Including module: test ***`
+```
+# dracut -f -v /boot/initramfs-$(uname -r).img $(uname -r)
+*** Including module: test ***
+```
 - Провряем наличие модуля и образе
 ```
 # lsinitrd -m /boot/initramfs-$(uname -r).img
